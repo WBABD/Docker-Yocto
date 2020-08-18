@@ -10,5 +10,10 @@ RUN apt-get update \
      build-essential chrpath socat libsdl1.2-dev xterm repo locales cpio
 
 RUN dpkg-reconfigure locales && locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && LANG=en_US.UTF-8
-RUN groupadd -r yc && useradd --no-log-init -r -g yc yc
-USER yc
+ARG UNAME=yc
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+USER $UNAME
+CMD /bin/bash
