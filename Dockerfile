@@ -7,4 +7,6 @@ RUN apt update \
 
 RUN apt-get update \
 	&& apt-get install -y gawk wget git-core diffstat unzip texinfo gcc-multilib \
-     build-essential chrpath socat libsdl1.2-dev xterm repo
+     build-essential chrpath socat libsdl1.2-dev xterm repo locales
+
+RUN dpkg-reconfigure locales && locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && LANG=en_US.UTF-8
